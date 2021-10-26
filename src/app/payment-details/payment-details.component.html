@@ -1,0 +1,31 @@
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Register Now !! </h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Owner</th>
+                    <th>Number</th>
+                    <th>Exp. Date</th>
+                    <th></th>  
+                    <th></th>                                
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pd of service.list">
+                    <td>{{pd.cardOwnerName}}</td>
+                    <td>{{pd.cardNumber}}</td>
+                    <td>{{pd.expirationDate}}</td>
+                    <td>
+                        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(pd.paymentDetailId)"></i>
+                    </td>
+                    <a type="button" class="btn btn-primary " [routerLink]="['/paymentdetails',pd.paymentDetailId]" >Edit</a>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
