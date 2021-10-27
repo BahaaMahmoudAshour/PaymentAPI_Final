@@ -26,6 +26,7 @@ export class PaymentDetailService {
   }
 
   refreshList() {
+    this.formData =  new PaymentDetail();
     this.http.get(environment.baseURL)
       .toPromise()
       .then(res =>this.list = res as PaymentDetail[]);

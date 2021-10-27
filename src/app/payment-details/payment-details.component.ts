@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentDetailService } from '../shared/payment-detail.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { PaymentDetail } from '../shared/payment-detail.model';
 
 @Component({
   selector: 'app-payment-details',

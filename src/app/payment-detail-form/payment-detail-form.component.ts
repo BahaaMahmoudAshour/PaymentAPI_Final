@@ -1,9 +1,9 @@
-import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PaymentDetailService } from 'src/app/shared/payment-detail.service';
 import { NgForm } from '@angular/forms';
 import { PaymentDetail } from 'src/app/shared/payment-detail.model';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-detail-form',
@@ -11,15 +11,18 @@ import { ActivatedRoute, Params } from '@angular/router';
   styles: [
   ]
 })
-export class PaymentDetailFormComponent implements OnInit , OnDestroy {
+export class PaymentDetailFormComponent implements OnInit, OnDestroy {
   constructor(public service: PaymentDetailService,
     private toastr: ToastrService,
-    private route: ActivatedRoute) {
-     }
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
 
-  ngOnInit(){
-    this.service.getById(Number(this.route.snapshot.paramMap.get("id")));
-  
+  ngOnInit() {
+    if (this.route.snapshot.paramMap.get("id") == null)
+      this.service.refreshList();
+    else
+      this.service.getById(Number(this.route.snapshot.paramMap.get("id")));
   }
   ngOnDestroy(): void {
   }
@@ -36,7 +39,8 @@ export class PaymentDetailFormComponent implements OnInit , OnDestroy {
       res => {
         this.resetForm(form);
         this.service.refreshList();
-        this.toastr.success('Submitted successfully', 'Payment Detail Register')
+        this.toastr.success('Submitted successfully', 'Payment Detail Register');
+        this.router.navigate(['/home']);
       },
       err => { console.log(err); }
     );
@@ -48,6 +52,7 @@ export class PaymentDetailFormComponent implements OnInit , OnDestroy {
         this.resetForm(form);
         this.service.refreshList();
         this.toastr.info('Updated successfully', 'Payment Detail Register')
+        this.router.navigate(['/home']);
       },
       err => { console.log(err); }
     );
